@@ -1,0 +1,67 @@
+{
+  "products": [
+    {
+      "id": "claw-alerts",
+      "name": "Claw Alerts",
+      "description": "NFT-gated floor price monitoring for Anatomy of Pepe holders",
+      "shortDescription": "Track floor prices. Get notified instantly. Never miss a move.",
+      "features": [
+        "🔒 Exclusive to Anatomy of Pepe holders",
+        "✨ Unlimited alerts",
+        "🎯 Custom triggers",
+        "🔔 Telegram notifications",
+        "⏱️ Real-time monitoring"
+      ],
+      "price": {
+        "eth": 0.0067,
+        "usd": 13.30
+      },
+      "contract": {
+        "address": "PLACEHOLDER",
+        "chain": "base",
+        "abi": ["function mint() external payable"]
+      },
+      "image": "⚠️",
+      "badge": "BEST SELLER",
+      "minted": 0,
+      "total": 1000,
+      "tier": "basic"
+    },
+    {
+      "id": "future-product-1",
+      "name": "Example Product 2",
+      "description": "Placeholder for future product",
+      "shortDescription": "Coming soon",
+      "features": [
+        "🔒 Exclusive access",
+        "✨ Premium features",
+        "🎯 Customization"
+      ],
+      "price": {
+        "eth": 0.01,
+        "usd": 20
+      },
+      "contract": {
+        "address": "0x0000000000000000000000000000000000000000",
+        "chain": "base",
+        "abi": []
+      },
+      "image": "🎯",
+      "badge": "COMING SOON",
+      "minted": 0,
+      "total": 500,
+      "tier": "premium"
+    }
+  ],
+  "general": {
+    "title": "Agent67 Premium Products",
+    "subtitle": "Exclusive NFT-gated utilities for the crypto community",
+    "description": "Own premium tools that make you money. Each product is exclusive to NFT holders.",
+    "priceDisplay": "ETH",
+    "cta": "Connect Wallet & Mint",
+    "statusMessage": "Checking ownership...",
+    "successMessage": "Mint successful!",
+    "errorMessage": "Mint failed",
+    "loadingMessage": "Processing..."
+  }
+}

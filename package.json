@@ -1,0 +1,26 @@
+{
+  "name": "claw-alerts",
+  "version": "1.0.0",
+  "description": "NFT floor price alerts for Anatomy of Pepe holders",
+  "main": "index.js",
+  "bin": {
+    "claw-alerts": "./bin/claw-alerts"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "nft",
+    "alerts",
+    "telegram",
+    "notification",
+    "anatomy-of-pepe",
+    "floor-price"
+  ],
+  "author": "agent67.eth",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Claw Alerts | Agent67</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Access Token Card */
+        .token-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .token-card h2 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .token-card p {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 30px;
+        }
+
+        .token-display {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            word-break: break-all;
+            line-height: 1.5;
+        }
+
+        .copy-btn {
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4caf50;
+            color: #4caf50;
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: rgba(76, 175, 80, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Steps */
+        .steps {
+            margin-bottom: 40px;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        .step-content p {
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+        }
+
+        /* Terminal */
+        .terminal {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 40px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27c93f; }
+
+        .terminal-title {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9em;
+        }
+
+        .terminal-line {
+            color: #d4d4d4;
+        }
+
+        .terminal-line.success { color: #4caf50; }
+        .terminal-line.error { color: #f44336; }
+        .terminal-line.command { color: #4ec9b0; }
+        .terminal-line.info { color: #569cd6; }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .step {
+                flex-direction: column;
+            }
+
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎉 Claw Alerts Setup Complete!</h1>
+            <p>You now have access to premium NFT monitoring tools. Follow these steps to get started.</p>
+        </div>
+
+        <!-- Access Token -->
+        <div class="token-card">
+            <h2>🔑 Your Access Token</h2>
+            <p>Copy this token and use it during installation</p>
+            <div class="token-display" id="tokenDisplay">Loading...</div>
+            <button class="copy-btn" onclick="copyToken()">📋 Copy Token</button>
+        </div>
+
+        <!-- Setup Steps -->
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Install the Skill</h3>
+                    <p>Run the following command in your terminal:</p>
+                    <div class="code-block">
+                        <span class="terminal-line command">cd ~/path/to/claw-alerts && npm install</span>
+                    </div>
+                    <p style="margin-top: 15px;">Then verify your NFT ownership:</p>
+                    <div class="code-block">
+                        <span class="terminal-line command">claw alerts test</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Add Your First Alert</h3>
+                    <p>Track Anatomy of Pepe floor price:</p>
+                    <div class="code-block">
+                        <span class="terminal-line command">claw alerts add anatomy-of-pepe base ">0.007 ETH"</span>
+                    </div>
+                    <p style="margin-top: 15px;">Or track percentage changes:</p>
+                    <div class="code-block">
+                        <span class="terminal-line command">claw alerts add anatomy-of-pepe base ">5%"</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Start Monitoring</h3>
+                    <p>Begin receiving alerts on Telegram:</p>
+                    <div class="code-block">
+                        <span class="terminal-line command">claw alerts start</span>
+                    </div>
+                    <p style="margin-top: 15px;">Check status anytime:</p>
+                    <div class="code-block">
+                        <span class="terminal-line command">claw alerts status</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal Preview -->
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+                <span class="terminal-title">Terminal - Claw Alerts</span>
+            </div>
+            <div class="terminal-line">Welcome to Claw Alerts!</div>
+            <div class="terminal-line info">To get started, run:</div>
+            <div class="terminal-line command">claw alerts add anatomy-of-pepe base ">0.007 ETH"</div>
+            <div class="terminal-line info">Then start monitoring:</div>
+            <div class="terminal-line command">claw alerts start</div>
+            <div class="terminal-line info">Track your alerts:</div>
+            <div class="terminal-line command">claw alerts list</div>
+            <div class="terminal-line info">View status:</div>
+            <div class="terminal-line command">claw alerts status</div>
+            <div class="terminal-line" style="margin-top: 15px;">💡 Need help? Run "claw alerts --help"</div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <a href="https://agent67.eth.limo/mint" class="btn btn-secondary">← Back to Mint</a>
+            <a href="#" class="btn btn-primary">💬 Join Telegram</a>
+        </div>
+    </div>
+
+    <script>
+        // Get token from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token') || 'demo-token-for-testing';
+
+        // Display token
+        document.getElementById('tokenDisplay').textContent = token;
+
+        // Copy token function
+        function copyToken() {
+            navigator.clipboard.writeText(token).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy Token';
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy token');
+            });
+        }
+
+        // Simulate terminal commands
+        const commands = [
+            'claw alerts add anatomy-of-pepe base ">0.007 ETH"',
+            'claw alerts list',
+            'claw alerts status'
+        ];
+
+        let commandIndex = 0;
+
+        function simulateTerminal() {
+            if (commandIndex < commands.length) {
+                const terminal = document.querySelector('.terminal');
+                const command = commands[commandIndex];
+                const line = document.createElement('div');
+                line.className = 'terminal-line command';
+                line.textContent = command;
+                terminal.appendChild(line);
+                commandIndex++;
+
+                // Scroll to bottom
+                terminal.scrollTop = terminal.scrollHeight;
+
+                setTimeout(simulateTerminal, 1500);
+            }
+        }
+
+        // Start simulation after a delay
+        setTimeout(simulateTerminal, 2000);
+    </script>
+</body>
+</html>
